@@ -183,9 +183,13 @@ memcache_security_strategy = ENCRYPT
 memcache_secret_key = {{ memcache_secret_key }}
 memcached_servers = {% for host in groups['memcached'] %}{{ hostvars[host]['ansible_' + hostvars[host]['api_interface']]['ipv4']['address'] }}:{{ memcached_port }}{% if not loop.last %},{% endif %}{% endfor %}
 
-{% if nova_compute_virt_type in ['kvm', 'qemu'] %}
+{% if nova_compute_virt_type in ['kvm', 'qemu', 'lxc'] %}
 [libvirt]
+{% if nova_compute_virt_type in ['kvm', 'qemu'] %}
 connection_uri = "qemu+tcp://{{ migration_interface_address }}/system"
+{% else %}
+connection_uri = "lxc+tcp://{{ migration_interface_address }}/system"
+{% endif %}
 {% if enable_ceph | bool and nova_backend == "rbd" %}
 images_type = rbd
 images_rbd_pool = {{ ceph_nova_pool_name }}

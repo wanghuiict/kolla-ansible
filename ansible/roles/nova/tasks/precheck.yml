@@ -125,6 +125,6 @@
   register: result
   failed_when: result.stat.exists
   when:
-    - nova_compute_virt_type in ['kvm', 'qemu']
+    - nova_compute_virt_type in ['kvm', 'qemu', 'lxc']
     - container_facts['nova_libvirt'] is not defined
     - inventory_hostname in groups[nova_libvirt.group]

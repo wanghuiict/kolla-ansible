@@ -5,7 +5,7 @@ nova_services:
   nova-libvirt:
     container_name: nova_libvirt
     group: compute
-    enabled: "{{ nova_compute_virt_type in ['kvm', 'qemu'] }}"
+    enabled: "{{ nova_compute_virt_type in ['kvm', 'qemu', 'lxc'] }}"
     image: "{{ nova_libvirt_image_full }}"
     pid_mode: "host"
     privileged: True
