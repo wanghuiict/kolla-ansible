@@ -6,7 +6,7 @@
 - name: Flush handlers
   meta: flush_handlers
 
-- include_tasks: register.yml
+#- include_tasks: register.yml
 
 # Test haproxy user through VIP
 - include_tasks: check.yml

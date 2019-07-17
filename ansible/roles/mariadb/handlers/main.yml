@@ -9,7 +9,7 @@
     common_options: "{{ docker_common_options }}"
     environment:
       KOLLA_CONFIG_STRATEGY: "{{ config_strategy }}"
-      BOOTSTRAP_ARGS: "--wsrep-new-cluster"
+      BOOTSTRAP_ARGS: 
     image: "{{ service.image }}"
     labels:
       BOOTSTRAP:

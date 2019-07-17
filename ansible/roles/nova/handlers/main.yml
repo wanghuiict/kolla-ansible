@@ -71,17 +71,17 @@
   # guests running, nova_libvirt will raise error even though it is removed.
   retries: 5
   until: restart_nova_libvirt is success
-  when:
-    - kolla_action != "config"
-    - inventory_hostname in groups[service.group]
-    - service.enabled | bool
-    - config_json.changed | bool
-      or nova_libvirt_confs.changed | bool
-      or nova_libvirt_container.changed | bool
-      or ( ceph_conf is not none and ceph_conf.changed | bool )
-      or ( nova_ceph_keyring is defined and nova_ceph_keyring.changed | bool )
-      or ( libvirt_secrets_xml is defined and libvirt_secrets_xml.changed | bool )
-      or ( libvirt_secrets_key is defined and libvirt_secrets_key.changed | bool )
+#  when:
+#    - kolla_action != "config"
+#    - inventory_hostname in groups[service.group]
+#    - service.enabled | bool
+#    - config_json.changed | bool
+#      or nova_libvirt_confs.changed | bool
+#      or nova_libvirt_container.changed | bool
+#      or ( ceph_conf is not none and ceph_conf.changed | bool )
+#      or ( nova_ceph_keyring is defined and nova_ceph_keyring.changed | bool )
+#      or ( libvirt_secrets_xml is defined and libvirt_secrets_xml.changed | bool )
+#      or ( libvirt_secrets_key is defined and libvirt_secrets_key.changed | bool )
 
 - name: Restart nova-scheduler container
   vars:

@@ -189,6 +189,7 @@ memcached_servers = {% for host in groups['memcached'] %}{{ hostvars[host]['ansi
 connection_uri = "qemu+tcp://{{ migration_interface_address }}/system"
 {% else %}
 connection_uri = "lxc+tcp://{{ migration_interface_address }}/system"
+images_type=raw
 {% endif %}
 {% if enable_ceph | bool and nova_backend == "rbd" %}
 images_type = rbd
