@@ -38,3 +38,6 @@
 - name: Create .my.cnf in kolla_toolbox
   command: docker exec -t kolla_toolbox sh -c "echo -e \"[mysql]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\n[client]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\n[mysqldump]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\n[mysqladmin]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\n[mysqlcheck]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\" > /var/lib/ansible/.my.cnf"
 
+- name: Create keystonerc_admin file in kolla_toolbox
+  command: docker exec -t kolla_toolbox sh -c "echo -e \"unset OS_SERVICE_TOKEN\nexport OS_USERNAME=admin\nexport OS_PASSWORD='{{ keystone_admin_password }}'\nexport OS_AUTH_URL={{ keystone_admin_url }}\nexport PS1='[\u@\h \W(keystone_admin)]\$ '\nexport OS_PROJECT_NAME=admin\nexport OS_USER_DOMAIN_NAME=Default\nexport OS_PROJECT_DOMAIN_NAME=Default\nexport OS_IDENTITY_API_VERSION=3\" > /var/lib/ansible/keystonerc_admin"
+
