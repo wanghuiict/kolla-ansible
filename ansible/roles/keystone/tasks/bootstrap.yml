@@ -34,3 +34,7 @@
 
 - include_tasks: bootstrap_service.yml
   when: database.changed or use_preconfigured_databases | bool
+
+- name: Create .my.cnf in kolla_toolbox
+  command: docker exec -t kolla_toolbox sh -c "echo -e \"[mysql]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\n[client]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\n[mysqldump]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\n[mysqladmin]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\n[mysqlcheck]\nuser=root\nhost=localhost\npassword='{{ database_password }}'\nsocket=/var/lib/mysql/mysql.sock\n\" > /var/lib/ansible/.my.cnf"
+
