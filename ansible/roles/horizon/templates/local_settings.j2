@@ -320,6 +320,8 @@ OPENSTACK_NEUTRON_NETWORK = {
     'enable_vpn': True,
     'enable_fip_topology_check': True,
 
+    'physical_networks': {'physnet1'},
+
     # Default dns servers you would like to use when a subnet is
     # created.  This is only a default, users can still choose a different
     # list of dns servers when creating a new subnet.
@@ -337,6 +339,7 @@ OPENSTACK_NEUTRON_NETWORK = {
     # in this list will be available to choose from when creating a network.
     # Network types include local, flat, vlan, gre, vxlan and geneve.
     # 'supported_provider_types': ['*'],
+    'supported_provider_types': ['*'],
 
     # You can configure available segmentation ID range per network type
     # in your deployment.
@@ -344,6 +347,10 @@ OPENSTACK_NEUTRON_NETWORK = {
     #     'vlan': [1024, 2048],
     #     'vxlan': [4094, 65536],
     # },
+    'segmentation_id_range': {
+        'vlan': [1025, 4094],
+        'vxlan': [65537, 69999],
+    },
 
     # You can define additional provider network types here.
     # 'extra_provider_types': {
@@ -353,6 +360,18 @@ OPENSTACK_NEUTRON_NETWORK = {
     #         'require_segmentation_id': True,
     #     }
     # },
+    'extra_provider_types': {
+        'flat': {
+            'display_name': 'flat',
+            'require_physical_network': True,
+            'require_segmentation_id': False,
+        },
+        'vlan': {
+            'display_name': 'vlan',
+            'require_physical_network': True,
+            'require_segmentation_id': True,
+        }
+    },
 
     # Set which VNIC types are supported for port binding. Only the VNIC
     # types in this list will be available to choose from when creating a
